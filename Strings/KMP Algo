@@ -1,0 +1,31 @@
+t,p=input().split()
+tt=len(t)
+pp=len(p)
+lps=[0]*pp
+
+for i in range(1,pp):
+    if p[i]==p[lps[i-1]]:
+        lps[i]=lps[i-1]+1
+
+i=j=0
+while i<tt:
+    #if the characters in text and pattern match then increment both the pointers
+    if t[i]==p[j]:
+        i+=1
+        j+=1
+
+    #if whole pattern is traversed
+    if j==pp:
+        j=lps[j-1]
+        print('pattern found at ending index ',i-1)
+
+    #else the text is yet to be traversed and the current characters don't match
+    elif i<tt and t[i]!=p[j]:
+
+        #if first character of the pattern is mismatched then just increase i
+        if j==0:
+            i+=1
+
+        #else the characters till j-1 has matched so use that fact
+        else:
+            j=lps[j-1]
